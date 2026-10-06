@@ -1,3 +1,84 @@
+# Prompt used
+
+Complete the UI-only cleanup below in UNDER 10 MINUTES of elapsed time, including verification and reporting. Start a timer immediately. Work directly and keep edits small. Do not spend the time on a lengthy audit, planning, architectural changes, or unnecessary refactoring.
+
+Work in D:\devfest-241-35-335. Preserve all existing uncommitted changes and untracked files.
+
+Read root AGENTS.md and the six required context files in their specified order. Briefly inspect the current diff and relevant UI components, then implement.
+
+Scope
+- Edit UI presentation, layout, typography, spacing, copy, and semantic/accessibility markup only.
+- Relevant files: src/App.jsx, src/index.css, src/components/*.jsx, and src/data/translations.js.
+- Preserve the teal theme, existing Tailwind tokens, bilingual support, and current component structure.
+- Do not edit src/state/*, src/utils/*, or src/components/previewLifecycle.js.
+- Preserve all handlers, calculations, guards, assignment rules, storage behavior, PDF processing/output, and existing tests.
+- Do not install dependencies, change configuration, run repository-wide formatting, commit, push, or deploy.
+
+Already repaired — preserve and verify
+- Upload-first stacked workflow and nonsticky desktop layout.
+- Wrapped metadata, filenames, and status labels.
+- Approximately 44px controls and translated accessible labels.
+- Inline expiry errors and deadline hints.
+- Native modal keyboard behavior, Escape dismissal, focus restoration, and preview cleanup.
+- Five official statuses, translated error descriptors, pending/generation guards, atomic session transitions, snapshot protection, language-only persistence, refresh protection, byte-confirmed duplicates, and PDF repairs.
+
+Implement ALL of these remaining UI changes with targeted edits:
+
+1. Summary
+Replace the four SummaryCards with one compact, wrapping summary row. Retain every data-derived count, tender field, replacement action, and privacy explanation. Remove oversized numbers and decorative colored side bars.
+
+2. Checklist
+Move file selection/change controls into the matched-file area. Reduce redundant desktop columns and provide adequate space for requirement names, filenames, expiry, and status.
+Make stacked rows clearly grouped, with visible translated file/expiry labels. Preserve input IDs, blocker anchors, callbacks, disabled conditions, inline errors, and change/cancel/unmatch actions.
+Choose layout changes from available space; do not shrink text to force columns.
+
+3. Uploaded files
+Replace individual rounded bordered file cards with compact rows and dividers. Use neutral icons for valid files; reserve red for errors.
+Render routine matched/unmatched information as text. Keep duplicate warnings distinct. Remove decorative sparkles and icon backgrounds.
+Preserve filenames, sizes, page counts, processing/errors, duplicate details, suggestions, Accept, Preview, and Remove. Reposition actions if their 44px targets squeeze filenames.
+
+4. Readiness and success
+Flatten nested readiness/blocker boxes into one clear section. Keep every blocker link, optional-document note, index checkbox, and Generate action.
+Present success details as a left-aligned plain summary with filename and primary Download action. Keep Generate Again and CSV export secondary. Preserve all existing visibility and disabled guards.
+
+5. Progress styling
+Use neutral progress styling for pending intake and generation rather than red error styling or PackageX. Use existing pending/generating props; do not change readiness logic.
+Remove repeated adjacent progress messages and blocking counts without hiding any reason or exposing stale downloads.
+
+6. Refresh warning
+Keep the translated memory-only/refresh-loss warning visible, but make it a compact informational note instead of a dominant amber banner. Preserve beforeunload behavior and never imply work is saved.
+
+7. Initial screen and typography
+Reduce RequirementsLoader’s excessive outer/inner padding. Use “Load tender requirements,” one short instruction, JSON chooser, drop guidance, and sample action, translated into Bangla. Preserve all errors.
+Add a clear h1 to the loaded workspace.
+Use restrained hierarchy: approximately 20–24px page title, 16px section headings, 14–16px main text, and 12–14px supporting text. Improve tiny labels and unnecessary uppercase styling.
+
+8. Scrolling and overflow
+Use ordinary page scrolling for the uploaded list on narrow screens. Retain bounded desktop scrolling only where useful.
+Fix flex/grid overflow with min-width constraints and overflow wrapping. Keep long filenames, metadata, Bangla labels, controls, and errors readable.
+Do not restore sticky-sidebar behavior.
+
+9. Consistency and accessibility
+Standardize spacing and radii using the current system. Reduce nested borders, improve meaningful pale-gray text contrast, and retain semantic colors, 44px targets, Bengali line height, and visible focus.
+Respect reduced motion while preserving textual processing feedback. Add no decorative assets or invented metrics.
+
+Time budget
+- Minutes 0–1: required context and focused source/diff review.
+- Minutes 1–7: implement all nine items.
+- Minutes 7–9: focused browser checks plus existing tests/build.
+- Minute 9–10: update documentation, inspect the final diff, and report.
+
+Keep the initial audit to three short bullets maximum. Do not pause for approval for routine UI decisions within this scope.
+
+Verify efficiently
+Check English and Bangla at approximately 360, 1024, and 1440px, plus a short viewport and 200% zoom. Cover initial, loaded, blocked, processing, generated, and dialog states using supplied fictional fixtures. Check wrapping, overflow, primary actions, keyboard focus, and modal restoration.
+Smoke-test matching, expiry entry, language switching, preview, generation, and download.
+Run bun run test and bun run build using the declared Bun version. Run independent checks concurrently where practical. Do not repeatedly rerun passing checks or add new test infrastructure.
+
+Update context/progress-tracker.md with actual UI changes and verification evidence. Update ui-context.md only if conventions change. Preserve unrelated work.
+
+Final response: concise changes made, checks/results, any remaining items, and elapsed time.
+
 # Prompt at 6:56
 
 Spawn 7 subagents and use them in parallel to fix the identified problems in this project.

@@ -4,6 +4,7 @@ import { StatusPill, Button, pagesLabel } from "./ui"
 import { checkAssignment } from "../utils/matching"
 
 // Four columns leave room for filenames; stacked rows keep visible field labels.
+
 const GRID =
   "min-[1440px]:grid min-[1440px]:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,0.9fr)_minmax(0,0.8fr)] min-[1440px]:items-start min-[1440px]:gap-3"
 
@@ -116,7 +117,9 @@ function RequirementRow({
       )}
       <div role="cell" className="min-w-0">
         <div className="text-sm font-medium [overflow-wrap:anywhere]">
-          <span className="mr-2 font-mono text-xs text-muted">{orderLabel}</span>
+          <span className="mr-2 font-mono text-xs text-muted">
+            {orderLabel}
+          </span>
           {title}
         </div>
         <div className="mt-0.5 flex flex-wrap gap-x-2 text-xs text-muted">
@@ -127,7 +130,9 @@ function RequirementRow({
         </div>
       </div>
       <div role="cell" className="mt-2 min-w-0 min-[1440px]:mt-0">
-        <p className="mb-1 text-xs font-medium text-muted min-[1440px]:hidden">{t("colFile")}</p>
+        <p className="mb-1 text-xs font-medium text-muted min-[1440px]:hidden">
+          {t("colFile")}
+        </p>
         {file ? (
           <div className="flex min-w-0 items-start gap-2">
             <FileText
@@ -148,94 +153,104 @@ function RequirementRow({
           <span className="text-sm text-muted">{t("noFile")}</span>
         )}
         <div className="mt-2 min-w-0">
-        {showSelect ? (
-          <div className="flex items-center gap-1">
-            <label htmlFor={selectId} className="sr-only">
-              {t("selectFile")} — {title}
-            </label>
-            <select
-              id={selectId}
-              value=""
-              disabled={disabled}
-              autoFocus={editing}
-              onChange={(e) => {
-                if (e.target.value) {
-                  onAssign(r.id, e.target.value)
-                  setEditing(false)
-                }
-              }}
-              className="min-h-11 w-full min-w-0 max-w-[320px] rounded-md border border-line bg-white px-2 py-2 text-sm font-medium text-ink disabled:opacity-50 min-[1440px]:max-w-none"
-            >
-              <option value="">
-                {files.length
-                  ? editing
-                    ? t("chooseFile")
-                    : t("selectFile")
-                  : t("noPdfsYet")}
-              </option>
-              {files.map((f) => {
-                if (f.id === file?.id) return null
-                const err = f.pageCount
-                  ? checkAssignment(f.id, r.id, files, matches, duplicateInfo)
-                  : { code: "file_invalid" }
-                let reason = ""
-                if (err?.code === "already_matched")
-                  reason = t("optInUse", { req: reqTitle(err.requirementId) })
-                else if (err?.code === "duplicate_used")
-                  reason = t("optDuplicate", {
-                    req: reqTitle(err.requirementId),
-                  })
-                else if (err) reason = t("optUnreadable")
-                return (
-                  <option key={f.id} value={f.id} disabled={!!err}>
-                    {f.name}
-                    {reason ? ` — ${reason}` : ""}
-                  </option>
-                )
-              })}
-            </select>
-            {editing && (
-              <button
-                type="button"
+          {showSelect ? (
+            <div className="flex items-center gap-1">
+              <label htmlFor={selectId} className="sr-only">
+                {t("selectFile")} — {title}
+              </label>
+              <select
+                id={selectId}
+                value=""
                 disabled={disabled}
-                onClick={() => setEditing(false)}
-                aria-label={`${t("cancel")} — ${title}`}
-                className="grid size-11 shrink-0 place-items-center rounded-md text-muted hover:bg-slate-100"
+                autoFocus={editing}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    onAssign(r.id, e.target.value)
+
+                    setEditing(false)
+                  }
+                }}
+                className="min-h-11 w-full min-w-0 max-w-[320px] rounded-md border border-line bg-white px-2 py-2 text-sm font-medium text-ink disabled:opacity-50 min-[1440px]:max-w-none"
               >
-                <X size={14} aria-hidden />
-              </button>
-            )}
-          </div>
-        ) : (
-          <div className="flex flex-wrap gap-1">
-            <Button
-              size="sm"
-              className="min-h-11"
-              disabled={disabled}
-              aria-label={`${t("change")} — ${title}`}
-              onClick={() => setEditing(true)}
-            >
-              {t("change")}
-            </Button>
-            <Button
-              size="sm"
-              className="min-h-11"
-              disabled={disabled}
-              variant="dangerGhost"
-              aria-label={`${t("removeMatch")} — ${title}`}
-              onClick={() => onUnmatch(r.id)}
-            >
-              {t("removeMatch")}
-            </Button>
-          </div>
-        )}
-      </div>
+                <option value="">
+                  {files.length
+                    ? editing
+                      ? t("chooseFile")
+                      : t("selectFile")
+                    : t("noPdfsYet")}
+                </option>
+                {files.map((f) => {
+                  if (f.id === file?.id) return null
+
+                  const err = f.pageCount
+                    ? checkAssignment(f.id, r.id, files, matches, duplicateInfo)
+                    : { code: "file_invalid" }
+
+                  let reason = ""
+
+                  if (err?.code === "already_matched")
+                    reason = t("optInUse", { req: reqTitle(err.requirementId) })
+                  else if (err?.code === "duplicate_used")
+                    reason = t("optDuplicate", {
+                      req: reqTitle(err.requirementId),
+                    })
+                  else if (err) reason = t("optUnreadable")
+
+                  return (
+                    <option key={f.id} value={f.id} disabled={!!err}>
+                      {f.name}
+                      {reason ? ` — ${reason}` : ""}
+                    </option>
+                  )
+                })}
+              </select>
+              {editing && (
+                <button
+                  type="button"
+                  disabled={disabled}
+                  onClick={() => setEditing(false)}
+                  aria-label={`${t("cancel")} — ${title}`}
+                  className="grid size-11 shrink-0 place-items-center rounded-md text-muted hover:bg-slate-100"
+                >
+                  <X size={14} aria-hidden />
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="flex flex-wrap gap-1">
+              <Button
+                size="sm"
+                className="min-h-11"
+                disabled={disabled}
+                aria-label={`${t("change")} — ${title}`}
+                onClick={() => setEditing(true)}
+              >
+                {t("change")}
+              </Button>
+              <Button
+                size="sm"
+                className="min-h-11"
+                disabled={disabled}
+                variant="dangerGhost"
+                aria-label={`${t("removeMatch")} — ${title}`}
+                onClick={() => onUnmatch(r.id)}
+              >
+                {t("removeMatch")}
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
       <div role="cell" className="mt-2 min-w-0 min-[1440px]:mt-0">
         {r.has_expiry && file ? (
           <div>
-            <label htmlFor={expiryId} className="mb-1 block text-xs font-medium text-muted">
-              <span className="sr-only">{t("expiryLabel", { req: title })}</span>
+            <label
+              htmlFor={expiryId}
+              className="mb-1 block text-xs font-medium text-muted"
+            >
+              <span className="sr-only">
+                {t("expiryLabel", { req: title })}
+              </span>
               <span aria-hidden>{t("colExpiry")}</span>
             </label>
             <input
@@ -299,7 +314,6 @@ function RequirementRow({
           </p>
         )}
       </div>
-
     </div>
   )
 

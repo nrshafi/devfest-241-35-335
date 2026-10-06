@@ -56,10 +56,7 @@ export function PackageReadiness({
       </div>
       <div className="p-4">
         {result && ready ? (
-          <div
-            role="status"
-            className="min-w-0"
-          >
+          <div role="status" className="min-w-0">
             <div className="flex items-center gap-2 text-sm font-semibold text-emerald-900">
               <CheckCircle2 size={17} aria-hidden />
               {t("success")}
@@ -70,10 +67,7 @@ export function PackageReadiness({
                 [result.documents.length, t("successDocs")],
                 [0, t("successBlocking")],
               ].map(([v, l]) => (
-                <div
-                  key={l}
-                  className="flex items-baseline gap-2"
-                >
+                <div key={l} className="flex items-baseline gap-2">
                   <dt className="text-muted">{l}</dt>
                   <dd className="font-semibold tabular-nums">{v}</dd>
                 </div>
@@ -118,7 +112,11 @@ export function PackageReadiness({
               }`}
             >
               {pending || generating ? (
-                <Loader2 size={20} className="mt-0.5 shrink-0 animate-spin" aria-hidden />
+                <Loader2
+                  size={20}
+                  className="mt-0.5 shrink-0 animate-spin"
+                  aria-hidden
+                />
               ) : ready ? (
                 <PackageCheck
                   size={20}
@@ -133,10 +131,10 @@ export function PackageReadiness({
                   {pending
                     ? t("intakePending")
                     : generating
-                    ? t("generating")
-                    : ready
-                      ? t("readyTitle")
-                      : t("notReady")}
+                      ? t("generating")
+                      : ready
+                        ? t("readyTitle")
+                        : t("notReady")}
                 </div>
                 {ready && <p className="mt-1 text-sm">{t("readyMsg")}</p>}
               </div>

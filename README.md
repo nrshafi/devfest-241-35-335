@@ -146,7 +146,7 @@ Versions resolved in `bun.lock`:
 
 - Codex
 - ChatGPT web and work
-- Gemini (in Antigravity), 
+- Gemini (in Antigravity),
 - Figma Make (in web)
 
 ### Recorded Development Prompt

@@ -526,7 +526,9 @@ export default function App() {
           />
         ) : (
           <div className="space-y-4">
-            <h1 className="text-xl font-semibold sm:text-2xl">{t("workspaceTitle")}</h1>
+            <h1 className="text-xl font-semibold sm:text-2xl">
+              {t("workspaceTitle")}
+            </h1>
             {jsonErrors && (
               <div
                 role="alert"

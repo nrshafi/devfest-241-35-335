@@ -120,16 +120,14 @@ export function UploadedFileList({
           <li
             key={f.id}
             className={`min-w-0 py-3 ${
-              f.error
-                ? "bg-red-50/40"
-                : dup
-                  ? ""
-                  : ""
+              f.error ? "bg-red-50/40" : dup ? "" : ""
             }`}
           >
             <div className="flex min-w-0 flex-wrap items-start gap-2">
               <div
-                className={`mt-1 shrink-0 ${f.error ? "text-red-700" : "text-muted"}`}
+                className={`mt-1 shrink-0 ${
+                  f.error ? "text-red-700" : "text-muted"
+                }`}
               >
                 {f.status === "processing" ? (
                   <Loader2 size={15} className="animate-spin" aria-hidden />
@@ -138,7 +136,10 @@ export function UploadedFileList({
                 )}
               </div>
               <div className="min-w-0 flex-1">
-                <div className="text-sm font-medium [overflow-wrap:anywhere]" title={f.name}>
+                <div
+                  className="text-sm font-medium [overflow-wrap:anywhere]"
+                  title={f.name}
+                >
                   {f.name}
                 </div>
                 <div className="text-xs text-muted">
@@ -149,7 +150,7 @@ export function UploadedFileList({
                       : formatBytes(f.size)}
                 </div>
               </div>
-              <div className="flex w-full flex-wrap gap-1 pl-6 sm:w-auto sm:pl-0 min-[1440px]:w-full min-[1440px]:pl-6">
+              <div className="flex w-full flex-wrap gap-1 pl-6">
                 <button
                   type="button"
                   disabled={!f.pageCount}

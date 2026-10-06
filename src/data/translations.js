@@ -198,8 +198,7 @@ export const translations = {
     steps: ["রিকোয়ারমেন্ট", "ডকুমেন্ট", "ম্যাচিং", "যাচাই", "প্যাকেজ"],
     workspaceTitle: "টেন্ডার প্যাকেজের কর্মক্ষেত্র",
     emptyTitle: "টেন্ডারের রিকোয়ারমেন্ট লোড করুন",
-    emptyBody:
-      "PDF ডকুমেন্ট মেলানো শুরু করতে টেন্ডারের JSON ফাইল বেছে নিন।",
+    emptyBody: "PDF ডকুমেন্ট মেলানো শুরু করতে টেন্ডারের JSON ফাইল বেছে নিন।",
     loadJson: "requirements.json লোড করুন",
     dropJson: "অথবা requirements.json ফাইলটি এখানে ছেড়ে দিন",
     loadSample: "নমুনা টেন্ডার ব্যবহার করুন (T-2026-0417)",

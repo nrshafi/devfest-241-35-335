@@ -1,8 +1,13 @@
 # Progress Tracker
 
-Last updated: **6 October 2026, 7:19 PM (Asia/Dhaka, UTC+06:00)**.
+Last updated: **6 October 2026, 7:23 PM (Asia/Dhaka, UTC+06:00)**.
 
 Update after every meaningful implementation change with current local date/time, completed work, verification evidence, remaining tasks, and limitations.
+
+## TenderPack Favicon — 6 October 2026, 7:23 PM (Asia/Dhaka)
+
+- Added an original SVG package mark on a rounded teal tile using the existing brand color, matching the header's package motif. Linked `public/favicon.svg` from the HTML shell; no dependencies added.
+- Inspected installed Vite 8.3.2 HTML asset handling for public-file URL rewriting. Bun 1.4.2 production build with `/devfest-241-35-335/` passed outside the sandbox after its Windows helper was blocked (`spawn EPERM`). Verified valid SVG XML, identical copied build asset, correct repository-prefixed favicon URL, and Git whitespace checks. Existing config-loader and bundle-size warnings remain.
 
 ## Current Phase and Goal
 
@@ -191,3 +196,8 @@ These remain baseline proposals. The imported app differs in several places (inc
 - Uploaded files use divided compact rows, neutral valid-file icons, plain match text and distinct duplicate warnings. Preview/remove targets wrap below filenames where space is limited; suggestions/Accept and all details remain.
 - Flattened readiness and left-aligned success summaries, removed repeated progress/count messages, made pending/generation neutral, and kept guards, blockers, optional notes and primary/secondary actions.
 - Reduced initial-loader padding, added translated workspace h1 and concise initial copy, compact memory-only notice, desktop-only upload scrolling, meaningful contrast and reduced-motion styling. Verification in progress; no domain/state/PDF/configuration changes.
+- Final verification (7:24 PM): Bun 1.4.2 `bun run test` passed 51 tests / 244 assertions. Final `bun run build` passed outside the sandbox after the sandbox blocked Vite's Windows helper; existing config-loader and large-chunk warnings remain. Git whitespace check passed. Formatting was limited to edited JSX/dictionary files; surplus formatter-only blank lines were removed to keep the patch small.
+- In-app browser checked English/Bangla initial, loaded/blocked and generated views at 360, 1024 and 1440px with no horizontal page overflow. Nine supplied PDFs loaded, including an identical experience certificate copy; duplicate warnings and restrictions remain. Eight matched documents plus cover generated 16 pages after native-keyboard expiry entry. Pending intake text was observed; existing readiness regression tests cover pending/generating stale-download guards.
+- Preview rendered the license, Escape closed it and restored its Preview trigger. A 360x400 confirmation dialog fit inside the viewport, focused Cancel and restored Reset after Escape. Generated mobile actions measured 44px tall. Screenshot: `.cache/ui-cleanup/mobile-success.jpg`.
+- Verification limits: Download was clicked, but the browser download event timed out and no new package appeared in the inspected Downloads filenames; current download completion is unverified. Zoom shortcuts had no effect in the in-app browser; actual 200% zoom is unverified, while equivalent 720px reflow passed. No implementation item remains unfinished; these verification limits are reported rather than claimed as passes.
+- Concurrent changes to the favicon/HTML, prior repair documentation and Git state were observed and preserved. This cleanup did not edit state, utilities, preview lifecycle, tests, dependencies, configuration or deployment.
