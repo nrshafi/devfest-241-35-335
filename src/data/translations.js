@@ -3,22 +3,84 @@ export const translations = {
     appName: "TenderPack",
     appSubtitle: "Tender Document Package Builder",
     reset: "Reset Project",
-    resetConfirm: "Reset the project? Loaded requirements, uploaded PDFs, matches and dates will be cleared.",
+    resetConfirm:
+      "Reset the project? Loaded requirements, uploaded PDFs, matches and dates will be cleared.",
     steps: ["Requirements", "Documents", "Matching", "Validation", "Package"],
-    emptyTitle: "Prepare a tender package without missing a document.",
-    emptyBody: "Load the tender requirements, match your PDFs, fix validation issues, and generate one submission-ready package.",
+    workspaceTitle: "Tender package workspace",
+    emptyTitle: "Load tender requirements",
+    emptyBody:
+      "Choose the tender JSON file to start matching your PDF documents.",
     loadJson: "Load requirements.json",
     dropJson: "or drop the requirements.json file here",
     loadSample: "Use sample tender (T-2026-0417)",
     privacy: "Your tender documents stay in your browser.",
+    sessionWarning:
+      "Work is kept in memory. Refreshing or closing this page clears requirements, PDFs, matches and dates. Download your completed package before leaving.",
+    replaceTitle: "Replace the current tender?",
+    replaceConfirm:
+      "Loading another tender clears the current PDFs, matches and dates. Continue?",
+    languageLabel: "Language",
+    workflowLabel: "Package workflow",
+    notApplicable: "Not applicable",
+    invalidExpiry: "Enter a real date in YYYY-MM-DD format.",
+    expiryHint:
+      "The expiry date must be on or after the submission deadline: {deadline}.",
+    intakePending:
+      "PDFs are still being read. Wait for file processing to finish before generating.",
+    generationBlocked:
+      "Resolve the checklist issues and wait for file processing before generating.",
+    errRead: "This file could not be opened. Try selecting it again.",
+    errHash:
+      "This file could not be checked for duplicates. Try uploading it again.",
+    genUnknown:
+      "The package could not be created. Try again after checking your files.",
+    generationErrors: {
+      UNKNOWN:
+        "The package could not be created. Try again after checking your files.",
+      INVALID_INPUT:
+        "Load valid requirements and match the required documents first.",
+      BLOCKED_REQUIREMENT: "Resolve the issue for {title} before generating.",
+      INVALID_REFERENCE:
+        "The matched file for {title} is unavailable. Select a file again.",
+      DUPLICATE_SOURCE:
+        "{fileName} is already used by another requirement. Use each document only once.",
+      UNREADABLE_SOURCE:
+        "{fileName} could not be included. Remove it and upload a readable PDF again.",
+      UNSUPPORTED_ANNOTATION:
+        "{fileName} contains a form or annotation that cannot be preserved. Export a flattened PDF and upload it again.",
+      UNSUPPORTED_GEOMETRY:
+        "The page layout in {fileName} cannot be preserved safely. Export a standard PDF and upload it again.",
+      UNSUPPORTED_TEXT:
+        "The text in {field} contains characters the English PDF font cannot display. Use supported English text before generating.",
+      COVER_TOO_LARGE:
+        "The tender details and document list cannot fit on the cover at a readable size. Shorten the text in your requirements file.",
+      INDEX_TOO_LARGE:
+        "The document list cannot fit on one readable index page. Disable the optional index or shorten document titles.",
+      FOOTER_TOO_LONG:
+        "The tender ID cannot fit in the page footer. Shorten it in your requirements file.",
+    },
     invalidJson: "This requirements file could not be used.",
     notJson: "The file is not valid JSON.",
+    json_object_required: "The requirements file must contain a JSON object.",
+    json_tender_required: "A tender object is required.",
+    json_field_required: "{field} must contain non-empty text.",
+    json_deadline_invalid: "{field} must be a real date in YYYY-MM-DD format.",
+    json_requirements_required:
+      "Include at least one requirement in the requirements list.",
+    json_requirement_object: "Requirement at index {index} must be an object.",
+    json_duplicate_id:
+      "Requirement ID {id} is repeated. Use a unique ID for each requirement.",
+    json_boolean_required: "{field} must be true or false.",
+    json_order_invalid: "{field} must be a positive whole number.",
+    json_duplicate_order:
+      "Order {order} is repeated. Use a unique order for each requirement.",
     tenderId: "Tender ID",
     tender: "Tender",
     entity: "Procuring Entity",
     bidder: "Bidder",
     deadline: "Submission Deadline",
-    reqCounts: "{total} requirements · {mandatory} required · {optional} optional",
+    reqCounts:
+      "{total} requirements · {mandatory} required · {optional} optional",
     replaceJson: "Load another",
     cardRequirements: "Requirements",
     cardReady: "Ready",
@@ -45,12 +107,17 @@ export const translations = {
     notRequired: "—",
     page: "page",
     pages: "pages",
-    statuses: { missing: "Missing", expiry_needed: "Expiry date needed", expired: "Expired", invalid_date: "Invalid date", not_provided: "Not provided", ok: "OK" },
+    statuses: {
+      missing: "Missing",
+      expiry_needed: "Expiry date needed",
+      expired: "Expired",
+      not_provided: "Not provided",
+      ok: "OK",
+    },
     statusHelp: {
       missing: "A required document has not been matched.",
       expiry_needed: "Enter the expiry date shown on the document.",
       expired: "Expired before the tender submission deadline.",
-      invalid_date: "Enter a valid date.",
       not_provided: "Optional — will be skipped.",
       ok: "",
     },
@@ -81,10 +148,12 @@ export const translations = {
     dupCopy: "Same content as {name}",
     preview: "Preview",
     remove: "Remove",
-    errPassword: "Password-protected PDF. Remove the password and upload again.",
+    errPassword:
+      "Password-protected PDF. Remove the password and upload again.",
     errDamaged: "This PDF is damaged or could not be read.",
     removeTitle: "Remove this file?",
-    removeMatched: "This file is currently matched to {req}. Removing it will make that requirement incomplete.",
+    removeMatched:
+      "This file is currently matched to {req}. Removing it will make that requirement incomplete.",
     removePlain: "{name} will be removed from this project.",
     removeFile: "Remove File",
     close: "Close",
@@ -96,10 +165,12 @@ export const translations = {
     notReady: "Package not ready",
     blockingMsg: "{n} blocking issues must be resolved.",
     blockingMsg1: "1 blocking issue must be resolved.",
-    resolveFirst: "Resolve {n} blocking issue(s) before generating the package.",
+    resolveFirst:
+      "Resolve {n} blocking issue(s) before generating the package.",
     readyTitle: "Ready to generate",
     readyMsg: "All mandatory requirements are satisfied.",
-    optionalSkipped: "{n} optional document(s) not provided — they will be skipped.",
+    optionalSkipped:
+      "{n} optional document(s) not provided — they will be skipped.",
     willContain: "{docs} documents · {pages} pages including cover",
     includeIndex: "Add an index page after the cover",
     generate: "Generate Package",
@@ -113,7 +184,8 @@ export const translations = {
     again: "Generate Again",
     exportCsv: "Export Checklist CSV",
     errAlready: "{file} is already matched to {req}. Remove that match first.",
-    errDup: "{file} has identical content to {other}, which is already used for {req}. One file cannot represent two requirements.",
+    errDup:
+      "{file} has identical content to {other}, which is already used for {req}. One file cannot represent two requirements.",
     errInvalid: "This file could not be read and cannot be matched.",
     loadRequirementsFirst: "Load requirements.json before uploading PDFs.",
   },
@@ -121,22 +193,77 @@ export const translations = {
     appName: "TenderPack",
     appSubtitle: "টেন্ডার ডকুমেন্ট প্যাকেজ নির্মাতা",
     reset: "প্রজেক্ট রিসেট",
-    resetConfirm: "প্রজেক্ট রিসেট করবেন? সব রিকোয়ারমেন্ট, আপলোড করা PDF, ম্যাচ ও তারিখ মুছে যাবে।",
+    resetConfirm:
+      "প্রজেক্ট রিসেট করবেন? সব রিকোয়ারমেন্ট, আপলোড করা PDF, ম্যাচ ও তারিখ মুছে যাবে।",
     steps: ["রিকোয়ারমেন্ট", "ডকুমেন্ট", "ম্যাচিং", "যাচাই", "প্যাকেজ"],
-    emptyTitle: "কোনো ডকুমেন্ট বাদ না দিয়ে টেন্ডার প্যাকেজ প্রস্তুত করুন।",
-    emptyBody: "টেন্ডারের রিকোয়ারমেন্ট লোড করুন, PDF মিলিয়ে নিন, ত্রুটি ঠিক করুন এবং জমা দেওয়ার উপযোগী একটি প্যাকেজ তৈরি করুন।",
+    workspaceTitle: "টেন্ডার প্যাকেজের কর্মক্ষেত্র",
+    emptyTitle: "টেন্ডারের রিকোয়ারমেন্ট লোড করুন",
+    emptyBody:
+      "PDF ডকুমেন্ট মেলানো শুরু করতে টেন্ডারের JSON ফাইল বেছে নিন।",
     loadJson: "requirements.json লোড করুন",
     dropJson: "অথবা requirements.json ফাইলটি এখানে ছেড়ে দিন",
     loadSample: "নমুনা টেন্ডার ব্যবহার করুন (T-2026-0417)",
     privacy: "আপনার টেন্ডার ডকুমেন্টগুলো আপনার ব্রাউজারেই থাকে।",
+    sessionWarning:
+      "আপনার কাজ সাময়িক মেমোরিতে থাকে। পৃষ্ঠা রিফ্রেশ বা বন্ধ করলে রিকোয়ারমেন্ট, PDF, ম্যাচ ও তারিখ মুছে যাবে। বের হওয়ার আগে সম্পূর্ণ প্যাকেজ ডাউনলোড করুন।",
+    replaceTitle: "বর্তমান টেন্ডার বদলাবেন?",
+    replaceConfirm:
+      "অন্য টেন্ডার লোড করলে বর্তমান PDF, ম্যাচ ও তারিখ মুছে যাবে। চালিয়ে যাবেন?",
+    languageLabel: "ভাষা",
+    workflowLabel: "প্যাকেজ তৈরির ধাপ",
+    notApplicable: "প্রযোজ্য নয়",
+    invalidExpiry: "YYYY-MM-DD বিন্যাসে একটি সঠিক তারিখ দিন।",
+    expiryHint: "মেয়াদ শেষের তারিখ জমার শেষ তারিখের সমান বা পরে হতে হবে: {deadline}।",
+    intakePending: "PDF পড়া হচ্ছে। ফাইল পড়া শেষ হলে প্যাকেজ তৈরি করুন।",
+    generationBlocked:
+      "চেকলিস্টের সমস্যাগুলো সমাধান করুন এবং ফাইল পড়া শেষ হওয়া পর্যন্ত অপেক্ষা করুন।",
+    errRead: "ফাইলটি খোলা যায়নি। আবার নির্বাচন করুন।",
+    errHash: "ফাইলটির ডুপ্লিকেট যাচাই করা যায়নি। আবার আপলোড করুন।",
+    genUnknown: "প্যাকেজ তৈরি করা যায়নি। ফাইলগুলো যাচাই করে আবার চেষ্টা করুন।",
+    generationErrors: {
+      UNKNOWN: "প্যাকেজ তৈরি করা যায়নি। ফাইলগুলো যাচাই করে আবার চেষ্টা করুন।",
+      INVALID_INPUT: "আগে সঠিক রিকোয়ারমেন্ট লোড করুন এবং আবশ্যিক ডকুমেন্টগুলো মেলান।",
+      BLOCKED_REQUIREMENT: "প্যাকেজ তৈরির আগে {title} এর সমস্যাটি সমাধান করুন।",
+      INVALID_REFERENCE: "{title} এর মিলানো ফাইলটি পাওয়া যাচ্ছে না। আবার একটি ফাইল বাছুন।",
+      DUPLICATE_SOURCE:
+        "{fileName} অন্য রিকোয়ারমেন্টে ব্যবহৃত হয়েছে। প্রতিটি ডকুমেন্ট একবারই ব্যবহার করুন।",
+      UNREADABLE_SOURCE:
+        "{fileName} অন্তর্ভুক্ত করা যায়নি। ফাইলটি সরিয়ে পড়া যায় এমন PDF আবার আপলোড করুন।",
+      UNSUPPORTED_ANNOTATION:
+        "{fileName} এর ফর্ম বা অ্যানোটেশন সংরক্ষণ করা যাচ্ছে না। সেগুলো স্থায়ীভাবে পাতায় যুক্ত করে PDF এক্সপোর্ট করুন এবং আবার আপলোড করুন।",
+      UNSUPPORTED_GEOMETRY:
+        "{fileName} এর পাতার বিন্যাস নিরাপদে সংরক্ষণ করা যাচ্ছে না। সাধারণ PDF হিসেবে এক্সপোর্ট করে আবার আপলোড করুন।",
+      UNSUPPORTED_TEXT:
+        "{field} এর কিছু অক্ষর ইংরেজি PDF ফন্টে দেখানো যায় না। প্যাকেজ তৈরির আগে সমর্থিত ইংরেজি লেখা দিন।",
+      COVER_TOO_LARGE:
+        "টেন্ডারের বিবরণ ও ডকুমেন্ট তালিকা পাঠযোগ্য আকারে কভারে ধরছে না। রিকোয়ারমেন্ট ফাইলের লেখা সংক্ষিপ্ত করুন।",
+      INDEX_TOO_LARGE:
+        "ডকুমেন্ট তালিকা একটি পাঠযোগ্য সূচিপত্রের পাতায় ধরছে না। ঐচ্ছিক সূচিপত্র বন্ধ করুন অথবা ডকুমেন্টের শিরোনাম সংক্ষিপ্ত করুন।",
+      FOOTER_TOO_LONG:
+        "টেন্ডার আইডি পাতার ফুটারে ধরছে না। রিকোয়ারমেন্ট ফাইলে এটি সংক্ষিপ্ত করুন।",
+    },
     invalidJson: "এই রিকোয়ারমেন্ট ফাইলটি ব্যবহার করা যায়নি।",
     notJson: "ফাইলটি সঠিক JSON নয়।",
+    json_object_required: "রিকোয়ারমেন্ট ফাইলটিতে একটি JSON অবজেক্ট থাকতে হবে।",
+    json_tender_required: "একটি tender অবজেক্ট প্রয়োজন।",
+    json_field_required: "{field} ঘরে খালি নয় এমন লেখা থাকতে হবে।",
+    json_deadline_invalid:
+      "{field} ঘরে YYYY-MM-DD বিন্যাসে একটি সঠিক তারিখ থাকতে হবে।",
+    json_requirements_required: "requirements তালিকায় অন্তত একটি রিকোয়ারমেন্ট দিন।",
+    json_requirement_object: "{index} সূচকের রিকোয়ারমেন্টটি একটি অবজেক্ট হতে হবে।",
+    json_duplicate_id:
+      "{id} রিকোয়ারমেন্ট আইডি একাধিকবার আছে। প্রতিটি রিকোয়ারমেন্টের আলাদা আইডি দিন।",
+    json_boolean_required: "{field} ঘরে true অথবা false থাকতে হবে।",
+    json_order_invalid: "{field} ঘরে একটি ধনাত্মক পূর্ণসংখ্যা থাকতে হবে।",
+    json_duplicate_order:
+      "{order} ক্রম একাধিকবার আছে। প্রতিটি রিকোয়ারমেন্টের আলাদা ক্রম দিন।",
     tenderId: "টেন্ডার আইডি",
     tender: "টেন্ডার",
     entity: "ক্রয়কারী প্রতিষ্ঠান",
     bidder: "দরদাতা",
     deadline: "জমার শেষ তারিখ",
-    reqCounts: "{total}টি রিকোয়ারমেন্ট · {mandatory}টি আবশ্যিক · {optional}টি ঐচ্ছিক",
+    reqCounts:
+      "{total}টি রিকোয়ারমেন্ট · {mandatory}টি আবশ্যিক · {optional}টি ঐচ্ছিক",
     replaceJson: "অন্যটি লোড করুন",
     cardRequirements: "রিকোয়ারমেন্ট",
     cardReady: "প্রস্তুত",
@@ -163,12 +290,17 @@ export const translations = {
     notRequired: "—",
     page: "পৃষ্ঠা",
     pages: "পৃষ্ঠা",
-    statuses: { missing: "অনুপস্থিত", expiry_needed: "মেয়াদ শেষ হওয়ার তারিখ প্রয়োজন", expired: "মেয়াদোত্তীর্ণ", invalid_date: "অবৈধ তারিখ", not_provided: "প্রদান করা হয়নি", ok: "ঠিক আছে" },
+    statuses: {
+      missing: "অনুপস্থিত",
+      expiry_needed: "মেয়াদ শেষ হওয়ার তারিখ প্রয়োজন",
+      expired: "মেয়াদোত্তীর্ণ",
+      not_provided: "প্রদান করা হয়নি",
+      ok: "ঠিক আছে",
+    },
     statusHelp: {
       missing: "একটি আবশ্যিক ডকুমেন্ট মেলানো হয়নি।",
       expiry_needed: "ডকুমেন্টে লেখা মেয়াদ শেষের তারিখ দিন।",
       expired: "টেন্ডার জমার শেষ তারিখের আগেই মেয়াদ শেষ হয়েছে।",
-      invalid_date: "একটি সঠিক তারিখ দিন।",
       not_provided: "ঐচ্ছিক — বাদ দেওয়া হবে।",
       ok: "",
     },
@@ -202,7 +334,8 @@ export const translations = {
     errPassword: "পাসওয়ার্ড-সুরক্ষিত PDF। পাসওয়ার্ড সরিয়ে আবার আপলোড করুন।",
     errDamaged: "PDF টি ক্ষতিগ্রস্ত বা পড়া যায়নি।",
     removeTitle: "ফাইলটি সরাবেন?",
-    removeMatched: "এই ফাইলটি বর্তমানে {req} এর সাথে মেলানো। এটি সরালে ওই রিকোয়ারমেন্ট অসম্পূর্ণ হবে।",
+    removeMatched:
+      "এই ফাইলটি বর্তমানে {req} এর সাথে মেলানো। এটি সরালে ওই রিকোয়ারমেন্ট অসম্পূর্ণ হবে।",
     removePlain: "{name} এই প্রজেক্ট থেকে সরানো হবে।",
     removeFile: "ফাইল সরান",
     close: "বন্ধ করুন",
@@ -231,18 +364,24 @@ export const translations = {
     again: "আবার তৈরি করুন",
     exportCsv: "চেকলিস্ট CSV এক্সপোর্ট",
     errAlready: "{file} ইতিমধ্যে {req} এর সাথে মেলানো। আগে সেই ম্যাচটি সরান।",
-    errDup: "{file} এর কনটেন্ট {other} এর সাথে হুবহু এক, যা ইতিমধ্যে {req} এ ব্যবহৃত। একটি ফাইল দুটি রিকোয়ারমেন্ট পূরণ করতে পারে না।",
+    errDup:
+      "{file} এর কনটেন্ট {other} এর সাথে হুবহু এক, যা ইতিমধ্যে {req} এ ব্যবহৃত। একটি ফাইল দুটি রিকোয়ারমেন্ট পূরণ করতে পারে না।",
     errInvalid: "ফাইলটি পড়া যায়নি, তাই মেলানো যাবে না।",
     loadRequirementsFirst: "PDF আপলোডের আগে requirements.json লোড করুন।",
   },
-};
+}
 
 export function makeT(lang) {
-  const dict = translations[lang] || translations.en;
+  const dict = translations[lang] || translations.en
   return (key, vars) => {
-    let s = key.split(".").reduce((o, k) => (o ? o[k] : undefined), dict);
-    if (s === undefined) s = key.split(".").reduce((o, k) => (o ? o[k] : undefined), translations.en) ?? key;
-    if (vars && typeof s === "string") for (const [k, v] of Object.entries(vars)) s = s.replaceAll(`{${k}}`, v);
-    return s;
-  };
+    let s = key.split(".").reduce((o, k) => (o ? o[k] : undefined), dict)
+    if (s === undefined)
+      s =
+        key
+          .split(".")
+          .reduce((o, k) => (o ? o[k] : undefined), translations.en) ?? key
+    if (vars && typeof s === "string")
+      for (const [k, v] of Object.entries(vars)) s = s.replaceAll(`{${k}}`, v)
+    return s
+  }
 }

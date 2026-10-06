@@ -1,10 +1,12 @@
 # Progress Tracker
 
-Last updated: **6 October 2026, 6:42 PM (Asia/Dhaka, UTC+06:00)**.
+Last updated: **6 October 2026, 7:19 PM (Asia/Dhaka, UTC+06:00)**.
 
 Update after every meaningful implementation change with current local date/time, completed work, verification evidence, remaining tasks, and limitations.
 
 ## Current Phase and Goal
+
+The user authorized fixing the site audit findings with seven subagents. All seven tasks and parent integration are complete. The production build and 51 regression tests pass; browser checks confirmed all sample uploads, duplicate restrictions, expiry boundaries, generated/downloaded 16-page package, bilingual messages, safe replacement/removal, modal keyboard behavior, previews, and responsive layouts. No commit, push, deployment, or contest-eligibility claim is part of this repair. Unsupported standard-font metadata and oversized cover/index inputs now fail explicitly; full project save/reopen remains outside scope.
 
 Context specification complete. The imported React/Vite application, Bun manifest/lockfile, and standalone configuration are tracked at the repository root. `TenderPack Application Development/` no longer exists; active AGENTS.md/context guidance now matches the root layout. A GitHub Actions workflow for GitHub Pages is implemented. A root-layout Bun build with the repository base path passed and generated asset/worker paths were checked. The workflow has not run on GitHub and the live deployment remains unverified. Feature compliance remains unverified; source inspection identified gaps listed below.
 
@@ -44,6 +46,8 @@ Context specification complete. The imported React/Vite application, Bun manifes
 Expected page count is a fixture reference, not a claim that an app generated a PDF.
 
 ## In Progress
+
+The authorized site-repair work is complete and awaiting user review. The older workflow/source observations below describe the pre-repair state; current verification is recorded in the Site Repairs section.
 
 The Pages workflow and associated documentation changes await review/commit. Source modules exist for requirements loading, PDF intake/preview, matching, expiry/statuses, duplicate detection, bilingual UI, package generation, optional index, filename suggestions, and CSV export. Their presence is source evidence, not proof that acceptance criteria pass. Application source and dependency versions were unchanged during workflow setup.
 
@@ -89,6 +93,37 @@ The Pages workflow and associated documentation changes await review/commit. Sou
 These remain baseline proposals. The imported app differs in several places (including useState transitions, localStorage for requirements JSON, and footer overlays); do not treat the table as verified implementation. Update architecture before adopting different contracts.
 
 ## Session Notes
+
+## Site Repairs — 6 October 2026, 6:57 PM (Asia/Dhaka)
+
+- Started PDF intake, PDF output, and requirements-validation subagents; four further focused tasks are queued for available slots.
+- Corrected derived statuses to the five official states. Invalid entered expiry remains `Expiry date needed` with a separate `expiryError` field for inline feedback.
+- Bun 1.4.2 status tests passed: no-match precedence, optional expiry rules, deadline equality, invalid calendar dates, and separate inline-error state (3 tests, 11 assertions).
+- Documented repair decisions for worker-independent page counts, byte-confirmed duplicates, external PDF footer bands, measured cover limits, explicit unsupported-font errors, and guarded in-memory sessions before dependent work.
+- PDF intake failure remains a runtime observation from the prior audit; Web Crypto failure is a candidate cause, not yet proven.
+- Added `bun run test` for the built-in Bun regression runner; documented the runner without adding a dependency or competing lockfile.
+- Requirements validator repair is written: normalized unique IDs, required positive integer/unique order, mandatory Bangla titles, plain record validation, calendar dates, and strict flags. Errors are translation-key descriptors. Focused validation tests are in progress; integration is pending.
+- Requirements agent finished with 10 passing tests, including normalized IDs, order policies, schema types, sorting, and date boundaries. Error rendering integration is assigned to the localization task.
+- Intake agent implemented pdf-lib page counting independent of the lazy preview worker, local SHA-256 fallback, byte-confirmed duplicate groups, decimal 50 MB limits, and correct password classification. Six intake tests pass, covering all ten PDFs/scanned declaration, invalid and zero-page files, protected PDFs, hash vectors/fallback, and collision/duplicate handling. App integration must retain original bytes and use decimal display units.
+- Session-safety subagent started: atomic state changes, bounded intake, stale-result guards, language-only storage, refresh warning, and validated tender replacement.
+- Re-tested intake in the same Codex browser that rejected all samples: `trade_license_2026.pdf` and image-only `scan_0042.pdf` now both load as one page, with preview/matching enabled. Remaining display divisor correction is assigned to localization.
+- PDF output repair is implemented with 13 passing focused tests (46 assertions): supplied fixture 16 pages/expected starts, rotated/cropped clipping and external bands, full wrapped cover/index text, generation blockers/reference/byte-duplicate checks, real page counts, explicit size/font errors, annotations and flattened form appearances. Visual QA of `.cache/pdf-repair/T-2026-0417_Package.pdf` is in progress; no new dependency.
+- Localization agent completed descriptor rendering for upload/schema errors, bilingual PDF error codes, pending/readiness guards, decimal upload limits, wrapped filenames, 44px file actions, and hidden file-input keyboard cleanup. Six localization tests pass (114 assertions), including rendering existing errors in both languages. Scoped formatting passed.
+- Sixth subagent started for upload-first mobile workflow, readable desktop/card checklist breakpoints, metadata wrapping, bilingual header accessibility, and inline expiry errors.
+- PDF visual QA passed: all 16 sample pages rendered and cover/contact sheet inspected; original crop-area pixels exactly match output source pixels at 0/90/180/270 degrees. Fixed cached cover-stream clipping discovered by QA, with regression assertion. Final PDF suite: 13 tests, 49 assertions. Existing form appearances are flattened to static content; unsupported fonts and crossing-crop/orphan annotations fail explicitly.
+- Session reducer/App integration is written: null-prototype maps, atomic assignments, serial capacity-reserved intake, retained bytes, session/revision guards, frozen generation snapshots, pending/duplicate readiness checks, language-only persistence, translated refresh warning and beforeunload, confirmed valid replacement. Session tests are in progress.
+- Seventh requested subagent started for keyboard modal confinement/Escape/focus restoration, preview cleanup, shared 44px controls, and wrapping status pills. All seven requested tasks have been dispatched in capacity-limited batches.
+- Integrated suites currently pass: 45 tests across intake, schema, PDF output, localization, session reducer, and statuses (235 assertions). This is before final responsive/dialog edits; browser acceptance and build remain pending.
+- Updated README test command, memory-only/language-only storage behavior, repaired known-issue list, and lazy preview/hash roles while preserving the user's participant/live-site/AI-tool edits. Remaining output limits are explicit rather than silently corrupting documents.
+- Session agent finished with 7 tests/61 assertions passing and scoped formatting. Installed React 19.3.0/DOM declarations verified; App integrates replacement/deadline/layout/pending props. Sandbox build encountered the previously recorded Vite helper `spawn EPERM`; parent will run the final production build with the needed sandbox escalation.
+- Responsive components implemented and formatted: upload/checklist/readiness order below 1440px; unstuck wide sidebar; wrapped metadata; replacement action; bilingual 44px header controls; wrapping steps; card checklist at 1024px; separate native/derived invalid-date feedback and deadline hint. Final browser layout checks are pending.
+- Accessibility agent finished native modal isolation, Tab cycling, Escape/focus restoration, scroll lock, preview cancellation/destruction safeguards, 44px shared controls, and wrapping five-state badges. Six async cleanup tests passed.
+- Final Bun suite passed: **51 tests across 7 files, 244 assertions**. Production build with `/devfest-241-35-335/` passed outside the sandbox; inherited `__dirname` future-loader and large-chunk warnings remain. No dependency/lockfile changes.
+- Browser acceptance: all ten supplied PDFs load with correct counts (18 retained source pages); PNG is rejected; exact duplicate copies cannot be assigned twice. Expired required and optional documents block; equal-deadline expiry is OK; partial invalid date displays inline feedback while remaining expiry-needed. Replacement clears expiry; remove/unmatch clears assignment and invalidates old downloads.
+- Browser generated 16-page/8-document baseline and downloaded `T-2026-0417_Package.pdf` to Downloads. Independently parsed the downloaded file: 16 pages and added external footer band. QA copy is `.cache/site-audit/T-2026-0417_Package.pdf`.
+- Invalid replacement JSON preserved work with translated normalized-ID feedback. Valid replacement requires confirmation; Escape/cancel retained all work. Shift+Tab/Tab stayed inside dialog, background scroll locked, and Escape restored trigger focus. Six-page preview successfully navigated to rendered page 2.
+- Bangla browser layouts at 390/1024/1440px have no horizontal page overflow; all measured visible buttons/selects/date inputs are at least 44px. Phone upload panel precedes checklist/readiness; tablet cards and desktop grid are readable. Existing PNG error translated after language switch. Screenshots: `.cache/site-audit/repaired-phone.jpg` and `repaired-desktop.jpg`.
+- Scoped formatting and Git whitespace verification completed. Preserved unrelated existing `skills` deletion and concurrent `used_prompt.md` edits. No commit, push, public deployment, or submission artifacts were created.
 
 - Current request: write a GitHub Actions workflow for GitHub Pages. Workflow, deployment instructions, root-layout guidance, and this tracker were updated; live deployment and feature fixes remain future work.
 - All six context files now contain concrete content.
@@ -148,3 +183,11 @@ These remain baseline proposals. The imported app differs in several places (inc
 - Verified action versions/inputs, Pages permissions/environment requirements, base-path metadata, Bun version detection, and Vite's CLI base option against official [GitHub Pages documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages), [Vite deployment guide](https://vite.dev/guide/static-deploy.html#github-pages), [configure-pages metadata](https://github.com/actions/configure-pages/blob/main/action.yml), [setup-bun](https://github.com/oven-sh/setup-bun), installed Vite 8.3.2 declarations/CLI source, and Bun 1.4.2 CLI help. Ego-browser was unavailable; web access supplied official references.
 - `bun install --frozen-lockfile --offline --cache-dir .cache/bun` passed with no dependency changes. `bun run build --base /devfest-241-35-335/` passed after running outside the sandbox because the sandbox blocked Vite's required Windows helper (`spawn EPERM`). Existing `__dirname` future-loader and large-bundle warnings remain.
 - Checked generated JS/CSS URLs and PDF.js worker URL for the repository prefix and corresponding existing files; `dist/robots.txt` exists. Git whitespace validation passed. No commit, push, workflow dispatch, repository settings change, public deployment, browser acceptance check, or contest-eligibility claim was made.
+
+## UI Cleanup — 6 October 2026, 7:19 PM (Asia/Dhaka)
+
+- Replaced oversized summary cards with a wrapping count row; retained all tender fields, requirement counts, replacement and privacy text.
+- Reduced checklist to four desktop columns, combined order with requirement and moved unchanged select/change/cancel/unmatch controls into the file cell. Stacked rows now show file and expiry labels; expiry IDs, errors, hints and anchors are preserved.
+- Uploaded files use divided compact rows, neutral valid-file icons, plain match text and distinct duplicate warnings. Preview/remove targets wrap below filenames where space is limited; suggestions/Accept and all details remain.
+- Flattened readiness and left-aligned success summaries, removed repeated progress/count messages, made pending/generation neutral, and kept guards, blockers, optional notes and primary/secondary actions.
+- Reduced initial-loader padding, added translated workspace h1 and concise initial copy, compact memory-only notice, desktop-only upload scrolling, meaningful contrast and reduced-motion styling. Verification in progress; no domain/state/PDF/configuration changes.

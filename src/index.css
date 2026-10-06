@@ -18,3 +18,11 @@ body { font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
 :lang(bn) body, [lang="bn"] { line-height: 1.55; }
 :focus-visible { outline: 2px solid var(--color-brand); outline-offset: 2px; border-radius: 6px; }
 input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; opacity: 0.6; }
+
+/* Keep bilingual content readable and respect motion preferences. */
+main section { min-width: 0; }
+main p, main li, main dd { overflow-wrap: anywhere; }
+[lang="bn"] button, [lang="bn"] label, [lang="bn"] select { line-height: 1.55; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

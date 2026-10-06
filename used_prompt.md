@@ -1,3 +1,77 @@
+# Prompt at 6:56
+
+Spawn 7 subagents and use them in parallel to fix the identified problems in this project.
+
+Do not give all agents the same task. Divide the problems logically so each agent owns a separate area and minimizes overlapping edits.
+
+# Prompt at 6:50
+
+Thoroughly audit this website and identify the most important problems, bugs, edge cases, and requirement violations.
+
+Do not modify any code. Your task is only to inspect, test, reproduce, and report problems.
+
+What to do:
+
+1. Run the application locally and test it like a real user.
+2. Test the complete main workflow from start to finish.
+3. Use all supplied sample files and sample data.
+4. Inspect the browser console for errors or warnings.
+5. Inspect the relevant source code when something looks wrong.
+6. Test both normal cases and edge cases.
+7. Test desktop and mobile layouts.
+8. Test both English and Bangla modes.
+9. Refresh the page at different stages and check what data is lost.
+10. Check generated/downloaded files carefully, including PDFs if applicable.
+11. Look for state-management problems, race conditions, stale results, and actions that can finish after the underlying data has changed.
+12. Compare the implementation against the provided requirements and identify anything that behaves differently from the required contract.
+
+For every problem:
+
+Try to reproduce it before reporting it.
+
+Clearly distinguish between:
+
+- Confirmed/reproduced bug
+- Code-level problem that is highly likely to cause a bug
+- Possible issue that could not be fully reproduced
+
+Do not report vague issues such as "UI could be improved." Explain the concrete user impact.
+
+
+
+Prioritization Using:
+
+- **Critical**: Main workflow is blocked, data/output is unusable, or a mandatory feature fundamentally fails
+- **High**: Serious correctness, reliability, or data-loss problem
+- **Medium**: Important usability, validation, localization, persistence, accessibility, or requirement issue
+- **Low**: Minor polish issue with limited impact
+
+Prioritize correctness and reliability over visual polish.
+
+### Output format
+
+Start with one short paragraph summarizing the biggest overall risk.
+
+Then provide a table:
+
+| Priority | Problem | Impact / Evidence |
+| --- | --- | --- |
+
+For each row:
+- Give the problem a short, specific name
+- Explain what happens
+- Mention how you reproduced it when relevant
+- Include the source file and line number when supported by code
+- Explain the user impact
+
+After the table, give a short recommended fixing order, starting with the issues that most affect whether users can successfully complete the main workflow and trust the generated output.
+
+End with:
+
+**No application code was changed.**
+
+Do not fix anything unless I explicitly ask you to do so.
+
 # Commit at 6:31 PM
 
 Build a complete, functional frontend web application called:

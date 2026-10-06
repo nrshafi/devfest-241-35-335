@@ -2,7 +2,7 @@
 
 ## Current State
 
-The baseline below remains a proposed implementation plan. The imported application lives at the repository root, with JSX application modules, TypeScript entry/configuration files, React, Vite, Tailwind CSS, pdf-lib, and pdfjs-dist declared in its manifest. Its feature behavior and compliance with the baseline have not been audited. The contest permits any frontend framework; the proposed choices below are not organizer mandates.
+The application lives at the repository root, with JSX application modules, TypeScript entry/configuration files, React, Vite, Tailwind CSS, pdf-lib, and pdfjs-dist declared in its manifest. The 6 October site repair audits and corrects intake, schema, session integrity, PDF output, localization, responsive workflow, and accessibility; verification evidence is in the tracker. Remaining proposed choices below are not organizer mandates, and local verification does not establish public deployment or contest eligibility.
 
 ### Imported Application: Standalone Configuration
 
@@ -33,6 +33,10 @@ Repository-root `AGENTS.md` and `context/` provide the shared development instru
 - `src/App.tsx`: re-export wrapper for `App.jsx`.
 - `src/components/`: checklist, uploads, summary, dialogs, and shared UI components.
 - `src/utils/`: input/date validation, matching, duplicates, hashing, PDF intake/preview, and package generation.
+- `src/utils/pdfPageGeometry.js`: crop-preserving external footer-band geometry and clipping.
+- `src/state/session.js`: atomic session reducer, pending/readiness checks, and isolated generation snapshots.
+- `src/components/WorkspaceLayout.jsx`: uploads/checklist/readiness flow and wide sidebar layout.
+- `tests/`: Bun regression checks for intake, schema, states, generation geometry, localization, and session behavior.
 - `src/data/`: bilingual dictionaries and sample requirements.
 - `src/index.css`: Tailwind v4 import, theme tokens, fonts, and global styles.
 - `index.html`: HTML shell, title, description, and crawler metadata.
@@ -100,6 +104,16 @@ These defensive policies resolve implementation details not specified by organiz
 12. Catch file/generation errors, preserve valid work, and restore usable controls. Never silently omit a matched file to make generation succeed.
 
 ## Package Assembly
+
+### Repair Decisions — 6 October 2026
+
+The authorized repair uses pdf-lib for intake page counts, independent of the optional PDF.js preview worker. Preview loading is lazy. SHA-256 has a local fallback when Web Crypto is unavailable, and duplicate groups require equal retained bytes as well as matching hash/size.
+
+PDF output retains copied source content and extends MediaBox/CropBox at the visual bottom according to rotation (0: bottom, 90: right, 180: top, 270: left). Source coordinates remain unchanged; footers occupy only the new band. Form appearances are flattened before copying, with an explicit error if preservation fails.
+
+Cover and index text is measured and wrapped without dropping entries. A single mandatory cover uses a minimum readable 8.5pt size; inputs that cannot fit fail with a specific error instead of producing an incomplete cover. Unsupported standard-font characters fail with a field-specific error instead of being replaced with question marks. Full Unicode PDF font support remains a limitation; supplied names and document titles are never silently altered.
+
+Session repairs keep PDFs in memory and persist only language. The UI explains refresh loss and protects active work with a leave-page warning. Replacement JSON is validated before confirmation and starts a clean session only after confirmation. Asynchronous intake and generation use session/revision guards, and pending intake disables generation.
 
 1. Derive included requirements, sort by numeric order, and revalidate every referenced source.
 2. Create a single English cover with all required tender fields and the included-document list. Measure and wrap text; no clipping or silently added core cover pages. Establish a policy for oversized unseen metadata before claiming full support.

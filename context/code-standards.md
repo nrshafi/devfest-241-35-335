@@ -68,6 +68,8 @@
 
 ## Verification and Repository Hygiene
 
+- Focused domain, intake, and generated-PDF regression checks use Bun's built-in test runner (`bun run test` / `bun test`). They exercise requirement normalization, assignment integrity, expiry boundaries, byte equality, and output geometry rather than mirroring UI markup.
+
 - The imported application at the repository root uses Bun per the user's instruction: `bun install`, `bun run dev`, and `bun run build`. Retain `bun.lock`; do not introduce competing package-manager lockfiles.
 
 - Verify relevant behavior before marking a unit complete; update the tracker with Asia/Dhaka date/time and evidence.

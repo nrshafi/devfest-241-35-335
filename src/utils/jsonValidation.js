@@ -1,60 +1,95 @@
-const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/
+const isObject = (value) =>
+  value !== null && typeof value === "object" && !Array.isArray(value)
+const hasText = (value) => typeof value === "string" && value.trim().length > 0
 
 export function isValidIsoDate(value) {
-  if (typeof value !== "string" || !DATE_RE.test(value)) return false;
-  const [y, m, d] = value.split("-").map(Number);
-  const dt = new Date(Date.UTC(y, m - 1, d));
-  return dt.getUTCFullYear() === y && dt.getUTCMonth() === m - 1 && dt.getUTCDate() === d;
+  if (typeof value !== "string" || !DATE_RE.test(value)) return false
+  const [y, m, d] = value.split("-").map(Number)
+  // setUTCFullYear avoids Date.UTC's special treatment of years 00–99.
+  const dt = new Date(0)
+  dt.setUTCFullYear(y, m - 1, d)
+  return (
+    y > 0 &&
+    dt.getUTCFullYear() === y &&
+    dt.getUTCMonth() === m - 1 &&
+    dt.getUTCDate() === d
+  )
 }
 
-/** Validates and normalizes a requirements.json object. Returns { ok, data } or { ok:false, errors }. */
+/**
+ * Validates and normalizes requirements.json without changing the input.
+ * Failures contain locale-independent { key, vars } messages for the UI.
+ * @returns {{ok: true, data: object} | {ok: false, errors: Array<{key: string, vars: object}>}}
+ */
 export function validateRequirementsJson(raw) {
-  const errors = [];
-  if (!raw || typeof raw !== "object") return { ok: false, errors: ["The file does not contain a JSON object."] };
-  const tender = raw.tender;
-  if (!tender || typeof tender !== "object") errors.push('Missing "tender" object.');
+  const errors = []
+  const addError = (key, vars = {}) => errors.push({ key, vars })
+  if (!isObject(raw))
+    return { ok: false, errors: [{ key: "json_object_required", vars: {} }] }
+  const tender = raw.tender
+  if (!isObject(tender)) addError("json_tender_required")
   else {
-    for (const k of ["tender_id", "title", "procuring_entity", "bidder", "submission_deadline"]) {
-      if (typeof tender[k] !== "string" || !tender[k].trim()) errors.push(`tender.${k} is missing.`);
+    for (const k of [
+      "tender_id",
+      "title",
+      "procuring_entity",
+      "bidder",
+      "submission_deadline",
+    ]) {
+      if (!hasText(tender[k]))
+        addError("json_field_required", { field: `tender.${k}` })
     }
-    if (typeof tender.submission_deadline === "string" && tender.submission_deadline && !isValidIsoDate(tender.submission_deadline))
-      errors.push("tender.submission_deadline must be a date in YYYY-MM-DD format.");
+    if (
+      hasText(tender.submission_deadline) &&
+      !isValidIsoDate(tender.submission_deadline.trim())
+    )
+      addError("json_deadline_invalid", { field: "tender.submission_deadline" })
   }
-  if (!Array.isArray(raw.requirements) || raw.requirements.length === 0) errors.push('"requirements" must be a non-empty list.');
+  if (!Array.isArray(raw.requirements) || raw.requirements.length === 0)
+    addError("json_requirements_required")
   else {
-    const ids = new Set();
+    const ids = new Set()
+    const orders = new Set()
     raw.requirements.forEach((r, i) => {
-      const label = `requirements[${i}]`;
-      if (!r || typeof r !== "object") return errors.push(`${label} is not an object.`);
-      if (typeof r.id !== "string" || !r.id.trim()) errors.push(`${label}.id is missing.`);
-      else if (ids.has(r.id)) errors.push(`Duplicate requirement id "${r.id}".`);
-      else ids.add(r.id);
-      if (typeof r.title_en !== "string" || !r.title_en.trim()) errors.push(`${label}.title_en is missing.`);
-      if (typeof r.mandatory !== "boolean") errors.push(`${label}.mandatory must be true or false.`);
-      if (typeof r.has_expiry !== "boolean") errors.push(`${label}.has_expiry must be true or false.`);
-      if (r.order !== undefined && (typeof r.order !== "number" || !Number.isFinite(r.order))) errors.push(`${label}.order must be a number.`);
-    });
+      const label = `requirements[${i}]`
+      if (!isObject(r)) return addError("json_requirement_object", { index: i })
+      for (const field of ["id", "title_en", "title_bn"]) {
+        if (!hasText(r[field]))
+          addError("json_field_required", { field: `${label}.${field}` })
+      }
+      if (hasText(r.id)) {
+        // Check the normalized form used by assignment maps.
+        const id = r.id.trim()
+        if (ids.has(id)) addError("json_duplicate_id", { id })
+        else ids.add(id)
+      }
+      for (const field of ["mandatory", "has_expiry"]) {
+        if (typeof r[field] !== "boolean")
+          addError("json_boolean_required", { field: `${label}.${field}` })
+      }
+      if (!Number.isSafeInteger(r.order) || r.order <= 0) {
+        addError("json_order_invalid", { field: `${label}.order` })
+      } else if (orders.has(r.order)) {
+        // Duplicate orders are ambiguous under the documented provisional policy.
+        addError("json_duplicate_order", { order: r.order })
+      } else orders.add(r.order)
+    })
   }
-  if (errors.length) return { ok: false, errors };
+  if (errors.length) return { ok: false, errors }
 
   const requirements = raw.requirements
     .map((r, i) => ({
       id: r.id.trim(),
-      order: typeof r.order === "number" ? r.order : null,
+      order: r.order,
       title_en: r.title_en.trim(),
-      title_bn: typeof r.title_bn === "string" && r.title_bn.trim() ? r.title_bn.trim() : r.title_en.trim(),
+      title_bn: r.title_bn.trim(),
       mandatory: r.mandatory,
       has_expiry: r.has_expiry,
       _index: i,
     }))
-    .sort((a, b) => {
-      if (a.order !== null && b.order !== null && a.order !== b.order) return a.order - b.order;
-      if (a.order !== null && b.order === null) return -1;
-      if (a.order === null && b.order !== null) return 1;
-      if (a.order === null) return a.id.localeCompare(b.id, undefined, { numeric: true });
-      return a._index - b._index;
-    });
-  const t = raw.tender;
+    .sort((a, b) => a.order - b.order)
+  const t = raw.tender
   return {
     ok: true,
     data: {
@@ -67,5 +102,5 @@ export function validateRequirementsJson(raw) {
       },
       requirements,
     },
-  };
+  }
 }

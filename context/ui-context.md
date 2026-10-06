@@ -50,6 +50,8 @@ Use native buttons, selects, file inputs, and date inputs with reusable React wr
 
 ## Main Layout
 
+The repaired workspace displays uploads, checklist, then generation readiness below 1440px. At 1440px and wider, the checklist sits beside a nonsticky upload/readiness sidebar. Checklist rows use cards below that breakpoint to avoid squeezed columns. Tender metadata and filenames wrap, workflow steps wrap on phones, and main actions have at least 44px hit areas. A visible notice explains memory-only sessions; loading another valid tender and reset use confirmation dialogs. Date errors are independent inline feedback, with the tender deadline described alongside each expiry input.
+
 1. Header: app name, short browser-local processing explanation, and visible English / বাংলা switch.
 2. Requirements panel: JSON chooser, validation feedback, tender details, submission deadline.
 3. Upload panel: multi-PDF chooser, 30-file/50 MB limits, retained count/size, filenames, page counts, duplicate groups, remove actions.
