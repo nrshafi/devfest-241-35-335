@@ -3,10 +3,10 @@ import { FileText, X } from "lucide-react"
 import { StatusPill, Button, pagesLabel } from "./ui"
 import { checkAssignment } from "../utils/matching"
 
-// Four columns leave room for filenames; stacked rows keep visible field labels.
+// Keep matching controls in their own Action column; stacked rows retain labels.
 
 const GRID =
-  "min-[1440px]:grid min-[1440px]:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)_minmax(0,0.9fr)_minmax(0,0.8fr)] min-[1440px]:items-start min-[1440px]:gap-3"
+  "min-[1440px]:grid min-[1440px]:grid-cols-[minmax(0,1.2fr)_minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,0.9fr)_minmax(0,0.9fr)] min-[1440px]:items-start min-[1440px]:gap-3"
 
 export function RequirementsTable({
   rows,
@@ -42,6 +42,7 @@ export function RequirementsTable({
             "colFile",
             "colExpiry",
             "colStatus",
+            "colAction",
           ].map((k) => (
             <div role="columnheader" key={k}>
               {t(k)}
@@ -152,94 +153,6 @@ function RequirementRow({
         ) : (
           <span className="text-sm text-muted">{t("noFile")}</span>
         )}
-        <div className="mt-2 min-w-0">
-          {showSelect ? (
-            <div className="flex items-center gap-1">
-              <label htmlFor={selectId} className="sr-only">
-                {t("selectFile")} — {title}
-              </label>
-              <select
-                id={selectId}
-                value=""
-                disabled={disabled}
-                autoFocus={editing}
-                onChange={(e) => {
-                  if (e.target.value) {
-                    onAssign(r.id, e.target.value)
-
-                    setEditing(false)
-                  }
-                }}
-                className="min-h-11 w-full min-w-0 max-w-[320px] rounded-md border border-line bg-white px-2 py-2 text-sm font-medium text-ink disabled:opacity-50 min-[1440px]:max-w-none"
-              >
-                <option value="">
-                  {files.length
-                    ? editing
-                      ? t("chooseFile")
-                      : t("selectFile")
-                    : t("noPdfsYet")}
-                </option>
-                {files.map((f) => {
-                  if (f.id === file?.id) return null
-
-                  const err = f.pageCount
-                    ? checkAssignment(f.id, r.id, files, matches, duplicateInfo)
-                    : { code: "file_invalid" }
-
-                  let reason = ""
-
-                  if (err?.code === "already_matched")
-                    reason = t("optInUse", { req: reqTitle(err.requirementId) })
-                  else if (err?.code === "duplicate_used")
-                    reason = t("optDuplicate", {
-                      req: reqTitle(err.requirementId),
-                    })
-                  else if (err) reason = t("optUnreadable")
-
-                  return (
-                    <option key={f.id} value={f.id} disabled={!!err}>
-                      {f.name}
-                      {reason ? ` — ${reason}` : ""}
-                    </option>
-                  )
-                })}
-              </select>
-              {editing && (
-                <button
-                  type="button"
-                  disabled={disabled}
-                  onClick={() => setEditing(false)}
-                  aria-label={`${t("cancel")} — ${title}`}
-                  className="grid size-11 shrink-0 place-items-center rounded-md text-muted hover:bg-slate-100"
-                >
-                  <X size={14} aria-hidden />
-                </button>
-              )}
-            </div>
-          ) : (
-            <div className="flex flex-wrap gap-1">
-              <Button
-                size="sm"
-                className="min-h-11"
-                disabled={disabled}
-                aria-label={`${t("change")} — ${title}`}
-                onClick={() => setEditing(true)}
-              >
-                {t("change")}
-              </Button>
-              <Button
-                size="sm"
-                className="min-h-11"
-                disabled={disabled}
-                variant="dangerGhost"
-                aria-label={`${t("removeMatch")} — ${title}`}
-                onClick={() => onUnmatch(r.id)}
-              >
-                {t("removeMatch")}
-              </Button>
-            </div>
-          )}
-        </div>
       </div>
       <div role="cell" className="mt-2 min-w-0 min-[1440px]:mt-0">
         {r.has_expiry && file ? (
@@ -312,6 +225,95 @@ function RequirementRow({
           >
             {help}
           </p>
+        )}
+      </div>
+      <div role="cell" className="mt-3 min-w-0 min-[1440px]:mt-0">
+        <p className="mb-1 text-xs font-medium text-muted min-[1440px]:hidden">{t("colAction")}</p>
+        {showSelect ? (
+          <div className="flex items-center gap-1">
+            <label htmlFor={selectId} className="sr-only">
+              {t("selectFile")} — {title}
+            </label>
+            <select
+              id={selectId}
+              value=""
+              disabled={disabled}
+              autoFocus={editing}
+              onChange={(e) => {
+                if (e.target.value) {
+                  onAssign(r.id, e.target.value)
+
+                  setEditing(false)
+                }
+              }}
+              className="min-h-11 w-full min-w-0 max-w-[320px] rounded-md border border-line bg-white px-2 py-2 text-sm font-medium text-ink disabled:opacity-50 min-[1440px]:max-w-none"
+            >
+              <option value="">
+                {files.length
+                  ? editing
+                    ? t("chooseFile")
+                    : t("selectFile")
+                  : t("noPdfsYet")}
+              </option>
+              {files.map((f) => {
+                if (f.id === file?.id) return null
+
+                const err = f.pageCount
+                  ? checkAssignment(f.id, r.id, files, matches, duplicateInfo)
+                  : { code: "file_invalid" }
+
+                let reason = ""
+
+                if (err?.code === "already_matched")
+                  reason = t("optInUse", { req: reqTitle(err.requirementId) })
+                else if (err?.code === "duplicate_used")
+                  reason = t("optDuplicate", {
+                    req: reqTitle(err.requirementId),
+                  })
+                else if (err) reason = t("optUnreadable")
+
+                return (
+                  <option key={f.id} value={f.id} disabled={!!err}>
+                    {f.name}
+                    {reason ? ` — ${reason}` : ""}
+                  </option>
+                )
+              })}
+            </select>
+            {editing && (
+              <button
+                type="button"
+                disabled={disabled}
+                onClick={() => setEditing(false)}
+                aria-label={`${t("cancel")} — ${title}`}
+                className="grid size-11 shrink-0 place-items-center rounded-md text-muted hover:bg-slate-100"
+              >
+                <X size={14} aria-hidden />
+              </button>
+            )}
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-1">
+            <Button
+              size="sm"
+              className="min-h-11"
+              disabled={disabled}
+              aria-label={`${t("change")} — ${title}`}
+              onClick={() => setEditing(true)}
+            >
+              {t("change")}
+            </Button>
+            <Button
+              size="sm"
+              className="min-h-11"
+              disabled={disabled}
+              variant="dangerGhost"
+              aria-label={`${t("removeMatch")} — ${title}`}
+              onClick={() => onUnmatch(r.id)}
+            >
+              {t("removeMatch")}
+            </Button>
+          </div>
         )}
       </div>
     </div>
