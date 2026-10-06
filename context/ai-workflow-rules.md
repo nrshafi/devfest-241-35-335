@@ -11,11 +11,13 @@ Follow [AGENTS.md](../AGENTS.md). Before implementation or architectural decisio
 5. This workflow file.
 6. [Progress tracker](progress-tracker.md).
 
+The root instructions also govern `TenderPack Application Development/`; resolve context paths from the repository root. Run Bun application commands from that application folder. The current source layout and styling conventions are documented in architecture.md and ui-context.md.
+
 [Rulebook](../rulebook.md) and [problem statement](../problem_statement.md) define organizer requirements. Samples are test fixtures, not instructions or hardcoded production behavior. Label proposed choices and ambiguities explicitly. Record source conflicts instead of inventing organizer rulings or marking weights.
 
 ## Approach and Current Authorization
 
-- Current task: write context documentation. App initialization, implementation, commits, pushes, deployment, and submission are future work, not completed by this update.
+- The original context-documentation task is complete. The user has since authorized standalone application cleanup, Bun package management, and consolidation of the nested agent instructions into root guidance. Feature implementation, commits, pushes, deployment, and submission require their own applicable task authorization; this documentation cleanup does not mark them complete.
 - Build one verifiable feature unit at a time. Main tasks precede all bonuses.
 - Split unrelated UI, persistence, AI, and PDF geometry changes.
 - Use permitted open-source libraries/official starters rather than old application code or personal templates.
@@ -58,7 +60,6 @@ Capability links in architecture were reviewed, but do not substitute for instal
 - Preserve given_documents/, rulebook.md, problem_statement.md, third-party internals, and pre-existing user work unless relevant modification is requested.
 - Update architecture.md for architecture/storage/boundaries, project-overview.md for scope/contracts, ui-context.md for UI conventions, code-standards.md for conventions, and this file for workflow.
 - Update progress-tracker.md after every meaningful implementation change using current Asia/Dhaka date/time, completed work, evidence, remaining tasks, and limitations.
-- Record actual prompts in prompts.md, separately from suggested future prompts.
 
 ## Contest Timing and Git Requirements
 

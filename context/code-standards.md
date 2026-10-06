@@ -12,6 +12,8 @@
 ## Language and React
 
 - Baseline: JavaScript ES modules with JSDoc data contracts. TypeScript is not mandatory; update architecture before changing that choice.
+- The imported application currently uses JSX modules with TypeScript entry/configuration files. Preserve existing named/default export contracts and update consumers when changing them; there is no blanket requirement to convert components to default exports.
+- Keep JSX tags and braces balanced. Use double quotes or escape apostrophes when a string contains an apostrophe.
 - Use session-generated file IDs; filenames are neither unique nor stable identifiers.
 - Use a reducer for transitions affecting assignment integrity and pure selectors for statuses, order, duplicate usage, and readiness.
 - Do not mutate state in place or put file/PDF side effects in status calculations.
@@ -65,6 +67,8 @@
 - Use only organizer-provided fictional test data. Respect dependency/font/image licenses and retain attribution.
 
 ## Verification and Repository Hygiene
+
+- The imported `TenderPack Application Development/` application uses Bun per the user's instruction: `bun install`, `bun run dev`, and `bun run build`. Retain `bun.lock`; do not introduce competing package-manager lockfiles.
 
 - Verify relevant behavior before marking a unit complete; update the tracker with Asia/Dhaka date/time and evidence.
 - Meaningful checks cover status precedence, deadline equality, optional expiry failures, duplicate conflicts, removal/replacement, invalid inputs, limits, and package order/footers.

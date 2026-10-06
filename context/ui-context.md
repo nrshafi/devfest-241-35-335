@@ -1,5 +1,11 @@
 # UI Context
 
+## Current Application Styling
+
+The imported application uses Tailwind CSS v4 through `@tailwindcss/vite` in `TenderPack Application Development/vite.config.ts`. Its global stylesheet is `src/index.css`, imported by `src/main.tsx`; use existing utility classes and its `@theme` tokens for maintenance. Keep CSS imports first, with font wiring and global styles in that stylesheet. There is no Tailwind or PostCSS configuration file in the current application.
+
+Current tokens include `canvas`, `ink`, `muted`, `line`, `brand`, `brand-dark`, and `brand-soft`, with teal accents. The stylesheet requests Inter, Noto Sans Bengali, and JetBrains Mono from Google Fonts and includes system fallbacks. These imported choices differ from the proposed palette and bundled-font policy below; this documentation cleanup does not change the UI or establish font/network compliance. Do not introduce a second token system as part of routine maintenance.
+
 ## Design Intent
 
 Proposed direction: a light office workspace with clear labels, strong contrast, and a visible checklist. No visual theme or component library is prescribed by the organizers. Prioritize completing the task in either language over decorative effects.

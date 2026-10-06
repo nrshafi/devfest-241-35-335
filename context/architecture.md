@@ -2,14 +2,18 @@
 
 ## Current State
 
-This is a proposed implementation plan. The repository has documentation and samples, with no application source, package manifest, installed app dependencies, or verified build. The contest permits any frontend framework. The choices below are consistent with the existing README draft but are not organizer mandates.
+The baseline below remains a proposed implementation plan. An imported application now exists under `TenderPack Application Development/`, with JSX application modules, TypeScript entry/configuration files, React, Vite, Tailwind CSS, pdf-lib, and pdfjs-dist declared in its manifest. Its feature behavior and compliance with the baseline have not been audited. The contest permits any frontend framework; the proposed choices below are not organizer mandates.
+
+### Imported Application: Standalone Configuration
+
+The user removed the Figma tooling directory, including `.figma/make/site.json`. Standalone configuration uses the existing React/Tailwind Vite plugins, preserves the `@` source alias and port 8443 default, and removes Figma-specific imports, plugins, and environment variables. Site title, English language, description, and noindex/nofollow metadata live in `index.html`; `public/robots.txt` preserves the previous crawler restriction. There is no Figma configuration dependency. Per the user's instruction, the imported application uses Bun 1.4.2 for package management and script execution, with `bun.lock` as its dependency lockfile. Dependency installation and build results are recorded in the progress tracker. This cleanup does not establish that the imported app satisfies the planned domain, PDF, storage, or UI contracts.
 
 ## Proposed Stack
 
 | Layer | Technology | Role |
 | --- | --- | --- |
 | UI | React, JavaScript ES modules, JSDoc contracts | Single-page checklist and file workspace |
-| Tooling | Vite, npm | Local development and static build |
+| Tooling | Vite, Bun | Local development and static build |
 | Styling | Plain CSS custom properties | Shared theme and responsive bilingual layout |
 | PDF | pdf-lib | Parse/count pages, create cover, compose package, draw footers |
 | Duplicate detection | Browser Web Crypto SHA-256 and byte equality | Exact-content groups independent of filenames |
@@ -19,6 +23,24 @@ This is a proposed implementation plan. The repository has documentation and sam
 | Hosting | Static HTTPS provider, to be selected | Public assets without application server code |
 
 pdf.js is optional if previews are added; page counting alone does not require another PDF dependency. No external API or AI feature is planned for the baseline. Verify and lock exact package/runtime versions during initialization.
+
+## Current Application Layout
+
+Repository-root `AGENTS.md` and `context/` provide the shared development instructions. Application paths below are relative to `TenderPack Application Development/`:
+
+- `src/main.tsx`: React entrypoint and global CSS import.
+- `src/App.jsx`: application composition and session state; start UI work here.
+- `src/App.tsx`: re-export wrapper for `App.jsx`.
+- `src/components/`: checklist, uploads, summary, dialogs, and shared UI components.
+- `src/utils/`: input/date validation, matching, duplicates, hashing, PDF intake/preview, and package generation.
+- `src/data/`: bilingual dictionaries and sample requirements.
+- `src/index.css`: Tailwind v4 import, theme tokens, fonts, and global styles.
+- `index.html`: HTML shell, title, description, and crawler metadata.
+- `vite.config.ts`: React/Tailwind plugins, `@` source alias, and port configuration.
+- `package.json` and `bun.lock`: scripts, dependency declarations, and locked resolutions.
+- `public/robots.txt`: crawler restriction copied into static build output.
+
+No local AGENTS.md is required in the application folder. Use the existing layout for maintenance; the boundaries below remain a proposed baseline organization rather than instructions to relocate modules during cleanup.
 
 ## Proposed Boundaries
 
@@ -35,9 +57,9 @@ pdf.js is optional if previews are added; page counting alone does not require a
 - given_documents/: preserved organizer input fixtures.
 - output/: required generated sample package; not app persistence.
 - screenshots/: actual app submission evidence.
-- context/: specifications, decisions, prompts, progress.
+- context/: specifications, decisions, workflow, progress.
 
-Application folders above do not exist yet. Create only those needed by each feature.
+These boundaries are not all implemented in the imported application. Create only those needed by an authorized feature change.
 
 ## Data and Storage
 
