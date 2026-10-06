@@ -22,8 +22,8 @@ If implementation changes the architecture, scope, or standards documented in th
 
 ## Application Workspace
 
-- This root `AGENTS.md` governs the application in `TenderPack Application Development/`. Resolve the context paths above from the repository root, even when working inside the application folder.
-- Run application commands from `TenderPack Application Development/`: `bun install`, `bun run dev`, `bun run build`, `bun run preview`, and `bun run format`. Retain `bun.lock`; use the Bun version declared in `package.json`.
+- This root `AGENTS.md` governs the application at the repository root. Resolve the context paths above from the repository root.
+- Run application commands from the repository root: `bun install`, `bun run dev`, `bun run build`, `bun run preview`, and `bun run format`. Retain `bun.lock`; use the Bun version declared in `package.json`.
 - A development server is not guaranteed to be running. The default local URL is `http://localhost:8443`; the `PORT` environment variable can override the port.
 - Start UI work in `src/App.jsx`. `src/App.tsx` is a re-export wrapper; `src/main.tsx` is the entrypoint and imports `src/index.css`.
 - Follow the current application layout in `context/architecture.md`, styling conventions in `context/ui-context.md`, and implementation conventions in `context/code-standards.md`.

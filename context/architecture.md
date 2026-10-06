@@ -2,7 +2,7 @@
 
 ## Current State
 
-The baseline below remains a proposed implementation plan. An imported application now exists under `TenderPack Application Development/`, with JSX application modules, TypeScript entry/configuration files, React, Vite, Tailwind CSS, pdf-lib, and pdfjs-dist declared in its manifest. Its feature behavior and compliance with the baseline have not been audited. The contest permits any frontend framework; the proposed choices below are not organizer mandates.
+The baseline below remains a proposed implementation plan. The imported application lives at the repository root, with JSX application modules, TypeScript entry/configuration files, React, Vite, Tailwind CSS, pdf-lib, and pdfjs-dist declared in its manifest. Its feature behavior and compliance with the baseline have not been audited. The contest permits any frontend framework; the proposed choices below are not organizer mandates.
 
 ### Imported Application: Standalone Configuration
 
@@ -20,13 +20,13 @@ The user removed the Figma tooling directory, including `.figma/make/site.json`.
 | State | React reducer and derived selectors | Atomic assignments and live validation |
 | Download | Browser Blob/object URLs | Local PDF download |
 | Storage | Memory; optional localStorage for language only | No automatic document persistence |
-| Hosting | Static HTTPS provider, to be selected | Public assets without application server code |
+| Hosting | GitHub Pages through GitHub Actions | Public assets without application server code |
 
 pdf.js is optional if previews are added; page counting alone does not require another PDF dependency. No external API or AI feature is planned for the baseline. Verify and lock exact package/runtime versions during initialization.
 
 ## Current Application Layout
 
-Repository-root `AGENTS.md` and `context/` provide the shared development instructions. Application paths below are relative to `TenderPack Application Development/`:
+Repository-root `AGENTS.md` and `context/` provide the shared development instructions. Application paths below are relative to the repository root:
 
 - `src/main.tsx`: React entrypoint and global CSS import.
 - `src/App.jsx`: application composition and session state; start UI work here.
@@ -40,7 +40,13 @@ Repository-root `AGENTS.md` and `context/` provide the shared development instru
 - `package.json` and `bun.lock`: scripts, dependency declarations, and locked resolutions.
 - `public/robots.txt`: crawler restriction copied into static build output.
 
-No local AGENTS.md is required in the application folder. Use the existing layout for maintenance; the boundaries below remain a proposed baseline organization rather than instructions to relocate modules during cleanup.
+Use the existing layout for maintenance; the boundaries below remain a proposed baseline organization rather than instructions to relocate modules during cleanup.
+
+## Static Deployment
+
+`.github/workflows/deploy-pages.yml` builds the root application on pushes to `main` and manual runs on `main`. It uses the Bun version declared in `package.json`, installs from `bun.lock` with `--frozen-lockfile`, and uploads only `dist/` for a separate GitHub Pages deployment job. Node.js 24 supplies the Vite runtime.
+
+The workflow configures Pages before building and passes its `base_path` output plus a trailing slash to `bun run build --base`. This overrides the local Vite `/` default for repository sites and supports root/custom-domain sites. Vite rewrites bundled assets, including the PDF.js worker imported with `?url`. Enable GitHub Actions as the repository's Pages source before running the workflow. No application backend or deployment secret is needed; the deployment uses the workflow's GitHub token and OIDC permissions. The public deployment remains unverified until a successful Actions run.
 
 ## Proposed Boundaries
 

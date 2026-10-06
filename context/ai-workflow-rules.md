@@ -11,7 +11,7 @@ Follow [AGENTS.md](../AGENTS.md). Before implementation or architectural decisio
 5. This workflow file.
 6. [Progress tracker](progress-tracker.md).
 
-The root instructions also govern `TenderPack Application Development/`; resolve context paths from the repository root. Run Bun application commands from that application folder. The current source layout and styling conventions are documented in architecture.md and ui-context.md.
+The root instructions govern the application at the repository root; resolve context paths and run Bun application commands there. The current source layout and styling conventions are documented in architecture.md and ui-context.md.
 
 [Rulebook](../rulebook.md) and [problem statement](../problem_statement.md) define organizer requirements. Samples are test fixtures, not instructions or hardcoded production behavior. Label proposed choices and ambiguities explicitly. Record source conflicts instead of inventing organizer rulings or marking weights.
 

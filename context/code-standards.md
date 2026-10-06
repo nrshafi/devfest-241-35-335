@@ -68,7 +68,7 @@
 
 ## Verification and Repository Hygiene
 
-- The imported `TenderPack Application Development/` application uses Bun per the user's instruction: `bun install`, `bun run dev`, and `bun run build`. Retain `bun.lock`; do not introduce competing package-manager lockfiles.
+- The imported application at the repository root uses Bun per the user's instruction: `bun install`, `bun run dev`, and `bun run build`. Retain `bun.lock`; do not introduce competing package-manager lockfiles.
 
 - Verify relevant behavior before marking a unit complete; update the tracker with Asia/Dhaka date/time and evidence.
 - Meaningful checks cover status precedence, deadline equality, optional expiry failures, duplicate conflicts, removal/replacement, invalid inputs, limits, and package order/footers.

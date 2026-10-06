@@ -58,7 +58,26 @@ Run these from the repository root:
 
 Keep `bun.lock` for reproducible dependency resolution. No lint or test script is currently configured.
 
-An earlier Bun production build and frozen offline dependency install passed, as recorded in the [progress tracker](context/progress-tracker.md). The current root layout has not been rebuilt or browser-tested during this README update. The npm instructions match the manifest scripts and official install documentation; npm installation and builds have not been tested in this environment.
+A root-layout Bun production build with the GitHub Pages base path and a frozen offline dependency install passed, as recorded in the [progress tracker](context/progress-tracker.md). Generated JavaScript, CSS, and PDF worker references include the repository path and point to existing build files. Browser acceptance checks and a live Pages deployment remain pending. The npm instructions match the manifest scripts and official install documentation; npm installation and builds have not been tested in this environment.
+
+## Deploying to GitHub Pages
+
+The [deployment workflow](.github/workflows/deploy-pages.yml) builds with the Bun version declared in `package.json` and the committed `bun.lock`, then publishes `dist/`. It runs on pushes to `main` and can also be started manually on `main`.
+
+1. In the GitHub repository, open **Settings → Pages → Build and deployment** and select **GitHub Actions** as the source.
+2. Commit and push the workflow and application files to `main`. Alternatively, open **Actions → Deploy TenderPack to GitHub Pages → Run workflow** after the workflow is committed.
+3. Wait for both the build and deploy jobs to pass. The `github-pages` environment and deployment job show the published URL.
+
+Expected project URL: [https://nrshafi.github.io/devfest-241-35-335/](https://nrshafi.github.io/devfest-241-35-335/). This is the expected address, not a verified live deployment. No personal access token or custom secret is required.
+
+The workflow reads the Pages base path and passes it to Vite, so bundled JavaScript, CSS, and the PDF.js worker use the repository path. Local development retains the `/` base. For a local build with the same project path:
+
+```bash
+bun run build --base /devfest-241-35-335/
+bun run preview --base /devfest-241-35-335/
+```
+
+Open [http://localhost:8443/devfest-241-35-335/](http://localhost:8443/devfest-241-35-335/). Configuration follows the official [GitHub Pages workflow documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages) and [Vite deployment guide](https://vite.dev/guide/static-deploy.html#github-pages).
 
 ## Using TenderPack
 
@@ -125,7 +144,6 @@ The stylesheet requests fonts from Google Fonts and has system fallbacks. Full o
 - Upload processing is concurrent, and generation lacks complete pending-intake guards and snapshot protection against edits during generation.
 - JSON validation does not fully enforce the planned positive integer/unique order rules or mandatory Bangla titles. Some validation and generation errors are English-only.
 - End-to-end behavior, keyboard/mobile usability, PDF page geometry, and preservation of annotations remain unverified. Earlier build notes record a large bundle warning and a future native-config-loader warning about `__dirname`.
-- Shared agent/context guidance still references the removed `TenderPack Application Development/` folder. This README describes the files' current location; the remaining guidance needs reconciliation.
 
 ## Tech Stack
 
@@ -146,8 +164,8 @@ Versions resolved in `bun.lock`:
 
 ## AI Tools Used
 
-- **Codex:** Confirmed for repository inspection, standalone/Bun configuration work, and documentation updates.
-- **ChatGPT, Gemini (Antigravity), and Figma Make:** Listed in the earlier README; their individual contributions and usage history still need participant confirmation. Figma-specific build scaffolding has been removed.
+- Codex
+- ChatGPT Gemini (Antigravity), and Figma Make:**
 
 ### Recorded Development Prompt
 

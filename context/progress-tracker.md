@@ -1,12 +1,12 @@
 # Progress Tracker
 
-Last updated: **6 October 2026, 6:38 PM (Asia/Dhaka, UTC+06:00)**.
+Last updated: **6 October 2026, 6:42 PM (Asia/Dhaka, UTC+06:00)**.
 
 Update after every meaningful implementation change with current local date/time, completed work, verification evidence, remaining tasks, and limitations.
 
 ## Current Phase and Goal
 
-Context specification complete. The imported React/Vite application, Bun manifest/lockfile, and standalone configuration are present as untracked files at the repository root. `TenderPack Application Development/` no longer exists. README now describes the root layout; AGENTS.md and other context guidance still reference the former location. Standalone cleanup and a successful Bun build were recorded earlier, but the current root layout has not been rebuilt or tested in this update. Feature compliance remains unverified; source inspection identified gaps listed below.
+Context specification complete. The imported React/Vite application, Bun manifest/lockfile, and standalone configuration are tracked at the repository root. `TenderPack Application Development/` no longer exists; active AGENTS.md/context guidance now matches the root layout. A GitHub Actions workflow for GitHub Pages is implemented. A root-layout Bun build with the repository base path passed and generated asset/worker paths were checked. The workflow has not run on GitHub and the live deployment remains unverified. Feature compliance remains unverified; source inspection identified gaps listed below.
 
 ## Completed
 
@@ -37,20 +37,20 @@ Context specification complete. The imported React/Vite application, Bun manifes
 | Resolved source pages | Eight included documents, 15 source pages; expected core package 16 pages including cover |
 | Expected starts | 2, 3, 4, 5, 6, 8, 14, 16 in requirement order |
 | Capability references | React, Vite, pdf-lib, and browser hashing documentation reviewed; links in architecture.md |
-| Documentation checks | README updated against source/configuration, lockfile, sample fixtures, and confirmed participant details; remaining guidance-path mismatch is recorded below |
-| App build/tests | Earlier Bun production build and frozen offline install recorded under Standalone Configuration Cleanup; current root layout not rebuilt or behavior-tested in this documentation update |
+| Documentation checks | README includes Pages setup; active AGENTS.md and context guidance agree on the repository-root layout |
+| App build/tests | Root-layout Bun 1.4.2 frozen offline install and production build with `/devfest-241-35-335/` passed; generated JS/CSS/PDF worker paths resolve to build files; feature/browser tests remain pending |
 | Output/live site | No generated submission package, status screenshot, or verified deployment |
 
 Expected page count is a fixture reference, not a claim that an app generated a PDF.
 
 ## In Progress
 
-Uncommitted application import and configuration/documentation changes await review. Source modules exist for requirements loading, PDF intake/preview, matching, expiry/statuses, duplicate detection, bilingual UI, package generation, optional index, filename suggestions, and CSV export. Their presence is source evidence, not proof that acceptance criteria pass. No application code was changed during this tracker update.
+The Pages workflow and associated documentation changes await review/commit. Source modules exist for requirements loading, PDF intake/preview, matching, expiry/statuses, duplicate detection, bilingual UI, package generation, optional index, filename suggestions, and CSV export. Their presence is source evidence, not proof that acceptance criteria pass. Application source and dependency versions were unchanged during workflow setup.
 
 ## Next Up
 
 1. Establish whether further work is contest submission work or practice; verify actual announced T+0 and submission state before contest code/Git/deployment changes.
-2. Reconcile the actual repository-root application layout with AGENTS.md and context guidance; README now describes the root layout. Verify Bun commands/build from the agreed location.
+2. Enable GitHub Actions as the Pages source, commit/push the workflow to `main`, and verify its build/deployment jobs and public URL.
 3. Audit existing JSON loading, PDF intake/removal/limits, duplicate grouping, and bilingual shell against baseline contracts before marking them complete.
 4. Resolve and verify status/assignment behavior, exact-byte duplicate confirmation, pending intake/generation guards, and session replacement/persistence behavior.
 5. Resolve and verify English cover completeness, ordered assembly, protected footer space, snapshot-safe download, and page geometry in the existing generator.
@@ -63,9 +63,9 @@ Uncommitted application import and configuration/documentation changes await rev
 
 - **Timing/submission:** announced T+0 and submission state are unknown. Listed clock times do not establish an exact eligible deadline. Never backdate or imply post-deadline work is eligible.
 - **Identity:** user confirmed Nafiur Rahman Shafi. No registration number was provided; the user requested removing that field from README. Repository naming is not registration confirmation.
-- **Hosting:** user confirmed the live site is not published yet. Choose a static provider and verify final public HTTPS URL; credentials/deployment identity have not been checked.
-- **Versions:** root package.json declares Bun 1.4.2 and React/Vite/Tailwind/PDF dependencies; earlier resolved versions and build evidence are recorded below. Current root-layout execution remains unverified.
-- **Application location:** app files now live at the repository root and the former subfolder no longer exists. README commands now point to the root; shared instructions/context guidance still reference the subfolder and need reconciliation before further application work.
+- **Hosting:** user selected GitHub Pages. Workflow and setup instructions are present; repository Pages settings and the public HTTPS deployment have not been checked.
+- **Versions:** root package.json declares Bun 1.4.2 and React/Vite/Tailwind/PDF dependencies. Root-layout frozen installation and Pages-base production build passed; GitHub's Ubuntu build remains unverified.
+- **Application location:** app files live at the repository root and the former subfolder no longer exists. Active README, AGENTS.md, and context guidance now agree; older session records retain their historical paths.
 - **Input units:** provisionally 50 MB = 50,000,000 bytes; clarify decimal versus binary interpretation with organizers if possible.
 - **Order ties:** provisionally reject duplicate order values with a clear error; clarify whether unseen packs allow ties. Positive integer/unique ID validation is a defensive policy.
 - **Large cover text:** establish a single-page cover layout for long metadata and many requirements. No maximum JSON requirement count is stated.
@@ -90,7 +90,7 @@ These remain baseline proposals. The imported app differs in several places (inc
 
 ## Session Notes
 
-- Current request: update README with current information. This update edits README and this tracker only; application fixes and broader verification remain future work.
+- Current request: write a GitHub Actions workflow for GitHub Pages. Workflow, deployment instructions, root-layout guidance, and this tracker were updated; live deployment and feature fixes remain future work.
 - All six context files now contain concrete content.
 - Sample facts are acceptance fixtures only; unseen packs must derive behavior from loaded JSON and bytes.
 - Users enter expiry dates; old/new filenames do not determine status automatically.
@@ -139,3 +139,12 @@ These remain baseline proposals. The imported app differs in several places (inc
 - Added npm setup and equivalent dev/build/preview/format commands at the user's request. Bun 1.4.2 remains the declared primary package manager; manifest and lockfile are unchanged.
 - Documented `npm install --package-lock=false` using the official npm install documentation to avoid adding a competing root lockfile, and explained that npm resolves manifest ranges rather than the Bun lockfile's versions.
 - Updated prerequisites and the recorded-prompt note to describe both setup options. Checked script names against package.json and Markdown whitespace. npm is unavailable on this shell's PATH, so no npm installation/build result is claimed. This is documentation-only work with no application build.
+
+## GitHub Pages Workflow — 6 October 2026, 6:42 PM (Asia/Dhaka)
+
+- Added `.github/workflows/deploy-pages.yml`: push/manual triggers on `main`, separate build/deploy jobs, serialized deployments, GitHub Pages environment URL, and job-specific Pages/OIDC permissions. Only `dist/` is uploaded. Uses official Pages actions, Node.js 24, and setup-bun's `packageManager` detection for Bun 1.4.2.
+- Installation uses `bun install --frozen-lockfile`; build overrides Vite's base through `configure-pages` metadata for repository, root, or custom-domain sites. No Vite source configuration or dependency changes were necessary.
+- Updated architecture before workflow implementation and reconciled active root instructions/context paths with the actual root application. Added README Pages setup, expected (unverified) project URL, and local Pages-base build/preview commands.
+- Verified action versions/inputs, Pages permissions/environment requirements, base-path metadata, Bun version detection, and Vite's CLI base option against official [GitHub Pages documentation](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages), [Vite deployment guide](https://vite.dev/guide/static-deploy.html#github-pages), [configure-pages metadata](https://github.com/actions/configure-pages/blob/main/action.yml), [setup-bun](https://github.com/oven-sh/setup-bun), installed Vite 8.3.2 declarations/CLI source, and Bun 1.4.2 CLI help. Ego-browser was unavailable; web access supplied official references.
+- `bun install --frozen-lockfile --offline --cache-dir .cache/bun` passed with no dependency changes. `bun run build --base /devfest-241-35-335/` passed after running outside the sandbox because the sandbox blocked Vite's required Windows helper (`spawn EPERM`). Existing `__dirname` future-loader and large-bundle warnings remain.
+- Checked generated JS/CSS URLs and PDF.js worker URL for the repository prefix and corresponding existing files; `dist/robots.txt` exists. Git whitespace validation passed. No commit, push, workflow dispatch, repository settings change, public deployment, browser acceptance check, or contest-eligibility claim was made.
